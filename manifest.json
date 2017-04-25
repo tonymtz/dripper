@@ -1,0 +1,12 @@
+{
+  "name": "Dripper",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Dripper lets you navigate through Liquid Stores",
+  "devtools_page": "devtools.html",
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}

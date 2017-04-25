@@ -1,0 +1,19 @@
+<table class="table table-condensed table-hover">
+    <tr data-ng-repeat="row in $ctrl.tableContent track by $index">
+        <td data-ng-switch="type(row)">
+            <span data-ng-switch-when="value">{{row}}</span>
+
+            <span data-ng-switch-when="array">
+                <array-to-table data-table-content="row" data-deep="$ctrl.deep - 1"
+                                data-ng-if="$ctrl.deep"></array-to-table>
+                <span data-ng-if="!$ctrl.deep">{{row}}</span>
+            </span>
+
+            <span data-ng-switch-when="object">
+                <object-to-table data-table-content="row" data-deep="$ctrl.deep - 1"
+                                 data-ng-if="$ctrl.deep"></object-to-table>
+                <span data-ng-if="!$ctrl.deep">{{row}}</span>
+            </span>
+        </td>
+    </tr>
+</table>

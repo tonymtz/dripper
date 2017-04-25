@@ -1,0 +1,66 @@
+<html data-ng-app="dripper">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- custom -->
+    <style>
+        html, body, table {
+            font-size: 10px;
+        }
+
+        body {
+            padding: 10px;
+        }
+
+        .no-padding {
+            padding: 0;
+        }
+    </style>
+</head>
+<body data-ng-controller="indexController" data-ng-init="update()">
+
+<button id="update-button" data-ng-click="update()" class="btn btn-default btn-xs">
+    Update
+</button>
+
+<input type="range" min="1" max="5" step="1" id="depth" data-ng-model="renderingDepth"/>
+<label for="depth">Rendering depth</label>
+
+<div class="input-group">
+    <input type="text" class="form-control input-xs" placeholder="Search for..." data-ng-model="searchFilter">
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-xs" type="button">Search</button>
+    </span>
+</div>
+
+<ul class="no-padding">
+    <!-- Store Level -->
+    <li data-ng-repeat="(storeName, storeContent) in stores" class="list-group-item">
+        <a href="#collapse-{{storeName}}" data-toggle="collapse">{{storeName}}</a>
+
+        <section id="collapse-{{storeName}}" class="panel-collapse collapse">
+            <ul>
+                <li data-ng-repeat="(tableName, tableContent) in storeContent | filterByTableName: searchFilter">
+                    <a href="#collapse-{{tableName}}" data-toggle="collapse">{{tableName}} [{{tableContent.length}}]</a>
+
+                    <ul id="collapse-{{tableName}}" class="panel-collapse collapse">
+                        <li data-ng-repeat="content in tableContent">
+                            <!-- Object level -->
+                            <object-to-table data-table-content="content" data-deep="renderingDepth"></object-to-table>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </li>
+    <!-- End Store Level -->
+</ul>
+
+<script src="scripts/jquery-3.2.1.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/angular.min.js"></script>
+<script src="scripts/list.min.js"></script>
+<script src="panel.js"></script>
+</body>
+</html>
